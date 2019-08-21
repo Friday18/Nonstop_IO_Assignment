@@ -16,6 +16,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,7 +61,7 @@ public class Home_Screen_Activity extends Activity
 			titles_adapter = new Titles_Adapter(this, retro_titleList);
 			LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 			//set up main recycler view
-			_rv_titles.setHasFixedSize(true);
+			//			_rv_titles.setHasFixedSize(true);
 			_rv_titles.setLayoutManager(layoutManager);
 			_rv_titles.setAdapter(titles_adapter);
 			titles_adapter.notifyDataSetChanged();
@@ -79,6 +81,9 @@ public class Home_Screen_Activity extends Activity
 						List<Retro_TitleList> list_resp = response.body();
 						retro_titleList.addAll(list_resp);
 						titles_adapter.notifyDataSetChanged();
+
+						LinearLayout ll_pb = findViewById(R.id.ll_pb);
+						ll_pb.setVisibility(View.GONE);
 					}
 					catch (Exception e)
 					{
