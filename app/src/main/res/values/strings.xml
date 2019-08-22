@@ -2,8 +2,6 @@
     <string name="app_name">NonstopIo_AssignMent</string>
     <string name="title_activity_login_">Login_Activity</string>
     <string name="sign_in_with_facebook">Sign in With FaceBook</string>
-
-
     <string name="facebook_app_id">518953682176443</string>
     <string name="fb_login_protocol_scheme">fb518953682176443</string>
     <string name="open_path">Open Path</string>

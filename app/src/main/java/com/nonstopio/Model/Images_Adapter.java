@@ -1,16 +1,15 @@
 package com.nonstopio.Model;
 
 import java.util.List;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.nonstopio.R;
+import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +41,11 @@ public class Images_Adapter extends RecyclerView.Adapter<Images_Adapter.PathView
 	public void onBindViewHolder(@NonNull PathViewHolder holder, final int position)
 	{
 		Retro_SubPaths retro_subPaths = _list_sub_paths.get(position);
-		Glide.with(mactivity).load(retro_subPaths.getImage()).diskCacheStrategy(DiskCacheStrategy.ALL)
-				.into(holder._iv_image);
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		mactivity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+		int width = displayMetrics.widthPixels;
+		Picasso.with(mactivity).load(retro_subPaths.getImage()).resize(width, 400).into(holder._iv_image);
+
 	}
 
 	@Override
