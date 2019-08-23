@@ -5,5 +5,7 @@
     <string name="facebook_app_id">518953682176443</string>
     <string name="fb_login_protocol_scheme">fb518953682176443</string>
     <string name="open_path">Open Path</string>
+    <string name="failure_login_message">Kindly Login With Facebook First.</string>
+    <string name="some_error_occured">Some Error occured</string>
 
 </resources>

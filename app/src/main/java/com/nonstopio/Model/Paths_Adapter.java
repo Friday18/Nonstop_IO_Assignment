@@ -5,8 +5,10 @@ import java.util.List;
 import com.nonstopio.R;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +40,7 @@ public class Paths_Adapter extends RecyclerView.Adapter<Paths_Adapter.PathViewHo
 	}
 
 	@Override
-	public void onBindViewHolder(@NonNull PathViewHolder holder, final int position)
+	public void onBindViewHolder(@NonNull final PathViewHolder holder, final int position)
 	{
 		Retro_SubPaths retro_subPaths = _list_sub_paths.get(position);
 
@@ -52,6 +54,19 @@ public class Paths_Adapter extends RecyclerView.Adapter<Paths_Adapter.PathViewHo
 				public void onClick(View v)
 				{
 					iOnItemClicked.onItemChanged(position);
+					holder._tv_path.setTypeface(null, Typeface.BOLD);
+
+					/*for (int i = 0; i < _list_sub_paths.size(); i++)
+					{
+						if (position == i)
+						{
+							holder._tv_path.setTypeface(null, Typeface.BOLD);
+						}
+						else
+						{
+							holder._tv_path.setTypeface(null, Typeface.NORMAL);
+						}
+					}*/
 				}
 			});
 			if (position == getItemCount() - 1)

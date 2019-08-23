@@ -40,6 +40,8 @@ public class Login_Activity extends Activity implements View.OnClickListener
 
 	SharedPreferences sharedPreferences;
 
+	private LoginButton _fbLoginbtn;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -81,13 +83,13 @@ public class Login_Activity extends Activity implements View.OnClickListener
 	{
 		TextView _tv_signIn = findViewById(R.id.tv_signIn);
 		_tv_signIn.setOnClickListener(this);
-		LoginButton _fb_loginbtn = findViewById(R.id.fb_loginbtn);
-		_fb_loginbtn.setReadPermissions(Arrays.asList("email", "public_profile"));
+		_fbLoginbtn = findViewById(R.id.fb_loginbtn);
+		_fbLoginbtn.setReadPermissions(Arrays.asList("email", "public_profile"));
 
 		mcallbackManager = CallbackManager.Factory.create();
 
 		//registering call back
-		_fb_loginbtn.registerCallback(mcallbackManager, new FacebookCallback<LoginResult>()
+		_fbLoginbtn.registerCallback(mcallbackManager, new FacebookCallback<LoginResult>()
 		{
 			@Override
 			public void onSuccess(LoginResult loginResult)
@@ -97,6 +99,7 @@ public class Login_Activity extends Activity implements View.OnClickListener
 				useLoginInformation(accessToken);
 				Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
 
+				String str = loginResult.toString();
 			}
 
 			@Override
@@ -108,7 +111,7 @@ public class Login_Activity extends Activity implements View.OnClickListener
 			@Override
 			public void onError(FacebookException error)
 			{
-				Toast.makeText(getApplicationContext(), "Error" + error, Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), R.string.some_error_occured, Toast.LENGTH_LONG).show();
 				Log.d("Log-", "" + error);
 			}
 		});
@@ -165,7 +168,17 @@ public class Login_Activity extends Activity implements View.OnClickListener
 		{
 			if (v.getId() == R.id.tv_signIn)
 			{
-				startActivity(new Intent(this, Home_Screen_Activity.class));
+				String strfbLoginText = _fbLoginbtn.getText().toString();
+
+				//				if (strfbLoginText != null && strfbLoginText.equalsIgnoreCase("Log in"))
+				{
+					startActivity(new Intent(this, Home_Screen_Activity.class));
+				}
+				//				else
+				//				{
+				//					Toast.makeText(this, getResources().getString(R.string.failure_login_message), Toast.LENGTH_SHORT)
+				//							.show();
+				//				}
 			}
 		}
 		catch (Exception e)

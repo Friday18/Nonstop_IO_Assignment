@@ -29,9 +29,7 @@ public class Titles_Adapter extends RecyclerView.Adapter<Titles_Adapter.TitlesVi
 
 	LinearLayoutManager layoutManager, layoutManager1;
 
-	private int scrollPosition = -1, scrollPosition_paths = 2;
-
-	private IOnItemClicked iOnItemClicked;
+	private int scrollPosition = -1;
 
 	public Titles_Adapter(Activity activity, List<Retro_TitleList> list_titles)
 	{
@@ -69,7 +67,7 @@ public class Titles_Adapter extends RecyclerView.Adapter<Titles_Adapter.TitlesVi
 			//set up main recycler view for paths
 			holder._rv_paths.setLayoutManager(layoutManager1);
 			holder._rv_paths.setHasFixedSize(true);
-			paths_adapter = new Paths_Adapter(mactivity, list.getSub_paths(), iOnItemClicked = new IOnItemClicked()
+			paths_adapter = new Paths_Adapter(mactivity, list.getSub_paths(), new IOnItemClicked()
 			{
 				@Override
 				public void onItemChanged(int pos)
