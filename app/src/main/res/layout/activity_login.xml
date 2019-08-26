@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@drawable/nonstop"/>
+            android:background="@drawable/nonstop" />
 
     </LinearLayout>
 
@@ -29,12 +29,13 @@
         android:orientation="vertical"
         android:padding="15dp">
 
-        <TextView
-            android:id="@+id/tv_signIn"
+        <Button
+            android:id="@+id/btn_signIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_in_with_facebook"
             android:textColor="#FFFFFFFF"
+            android:background="#22AFAD"
             android:textSize="15sp" />
 
         <com.facebook.login.widget.LoginButton

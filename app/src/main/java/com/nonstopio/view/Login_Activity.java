@@ -30,9 +30,11 @@ import android.content.pm.Signature;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
-public class Login_Activity extends Activity
+public class Login_Activity extends Activity implements View.OnClickListener
 {
 
 	private CallbackManager mcallbackManager;
@@ -40,6 +42,8 @@ public class Login_Activity extends Activity
 	SharedPreferences sharedPreferences;
 
 	private LoginButton _fbLoginbtn;
+
+	private Button _btn_signIn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -64,8 +68,8 @@ public class Login_Activity extends Activity
 				MessageDigest md = MessageDigest.getInstance("SHA");
 				md.update(signature.toByteArray());
 				//Log.d("KeyHash", "KeyHash:" + Base64.encodeToString(md.digest(), Base64.DEFAULT));
-				Toast.makeText(getApplicationContext(), Base64.encodeToString(md.digest(), Base64.DEFAULT),
-						Toast.LENGTH_LONG).show();
+				/*Toast.makeText(getApplicationContext(), Base64.encodeToString(md.digest(), Base64.DEFAULT),
+						Toast.LENGTH_LONG).show();*/
 			}
 		}
 		catch (PackageManager.NameNotFoundException e)
@@ -82,7 +86,8 @@ public class Login_Activity extends Activity
 	{
 		_fbLoginbtn = findViewById(R.id.fb_loginbtn);
 		_fbLoginbtn.setReadPermissions(Arrays.asList("email", "public_profile"));
-
+		_btn_signIn = findViewById(R.id.btn_signIn);
+		_btn_signIn.setOnClickListener(this);
 		mcallbackManager = CallbackManager.Factory.create();
 
 		//registering call back
@@ -108,7 +113,6 @@ public class Login_Activity extends Activity
 					editor.apply();
 					Toast.makeText(Login_Activity.this, getResources().getString(R.string.failure_login_message),
 							Toast.LENGTH_SHORT).show();
-
 				}
 			}
 
@@ -170,5 +174,23 @@ public class Login_Activity extends Activity
 	{
 		mcallbackManager.onActivityResult(requestCode, resultCode, data);
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void onClick(View v)
+	{
+		if (v.getId() == R.id.btn_signIn)
+		{
+			String str_Name = sharedPreferences.getString(Commons.NAME, "");
+			if (str_Name.isEmpty())
+			{
+				Toast.makeText(Login_Activity.this, getResources().getString(R.string.failure_login_message),
+						Toast.LENGTH_SHORT).show();
+				return;
+			}
+			Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
+			startActivity(new Intent(Login_Activity.this, Home_Screen_Activity.class));
+
+		}
 	}
 }

@@ -69,9 +69,11 @@ public class Images_Adapter extends RecyclerView.Adapter<Images_Adapter.PathView
 					@Override
 					public void run()
 					{
-						Picasso.with(mactivity).load(retro_subPaths.getImage()).resize(width, 350)
+						Picasso.with(mactivity).load(retro_subPaths.getImage()).resize(width, 400)
 								.into(holder._iv_image);
 						holder._ll_loadImage.setVisibility(View.GONE);
+						holder._iv_image.setBackgroundResource(android.R.color.transparent);
+
 					}
 				});
 			}
