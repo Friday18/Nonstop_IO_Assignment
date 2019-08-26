@@ -29,11 +29,10 @@ import android.content.pm.Signature;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Login_Activity extends Activity implements View.OnClickListener
+public class Login_Activity extends Activity
 {
 
 	private CallbackManager mcallbackManager;
@@ -51,7 +50,7 @@ public class Login_Activity extends Activity implements View.OnClickListener
 		FacebookSdk.sdkInitialize(getApplicationContext());
 		AppEventsLogger.activateApp(this);
 		initView();
-		//makeKeyHash();
+		makeKeyHash();
 
 	}
 
@@ -81,8 +80,6 @@ public class Login_Activity extends Activity implements View.OnClickListener
 
 	private void initView()
 	{
-		TextView _tv_signIn = findViewById(R.id.tv_signIn);
-		_tv_signIn.setOnClickListener(this);
 		_fbLoginbtn = findViewById(R.id.fb_loginbtn);
 		_fbLoginbtn.setReadPermissions(Arrays.asList("email", "public_profile"));
 
@@ -96,10 +93,23 @@ public class Login_Activity extends Activity implements View.OnClickListener
 			{
 				// Retrieving access token using the LoginResult
 				AccessToken accessToken = loginResult.getAccessToken();
-				useLoginInformation(accessToken);
-				Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
+				boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
 
-				String str = loginResult.toString();
+				Log.d("Log---> ", "isLoggedIn : " + isLoggedIn);
+				if (isLoggedIn)
+				{
+					useLoginInformation(accessToken);
+					Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
+				}
+				else
+				{
+					SharedPreferences.Editor editor = sharedPreferences.edit();
+					editor.putString(Commons.NAME, "");
+					editor.apply();
+					Toast.makeText(Login_Activity.this, getResources().getString(R.string.failure_login_message),
+							Toast.LENGTH_SHORT).show();
+
+				}
 			}
 
 			@Override
@@ -139,6 +149,7 @@ public class Login_Activity extends Activity implements View.OnClickListener
 					SharedPreferences.Editor editor = sharedPreferences.edit();
 					editor.putString(Commons.NAME, name.trim());
 					editor.apply();
+					startActivity(new Intent(Login_Activity.this, Home_Screen_Activity.class));
 				}
 				catch (JSONException e)
 				{
@@ -159,31 +170,5 @@ public class Login_Activity extends Activity implements View.OnClickListener
 	{
 		mcallbackManager.onActivityResult(requestCode, resultCode, data);
 		super.onActivityResult(requestCode, resultCode, data);
-	}
-
-	@Override
-	public void onClick(View v)
-	{
-		try
-		{
-			if (v.getId() == R.id.tv_signIn)
-			{
-				String strfbLoginText = _fbLoginbtn.getText().toString();
-
-				//				if (strfbLoginText != null && strfbLoginText.equalsIgnoreCase("Log in"))
-				{
-					startActivity(new Intent(this, Home_Screen_Activity.class));
-				}
-				//				else
-				//				{
-				//					Toast.makeText(this, getResources().getString(R.string.failure_login_message), Toast.LENGTH_SHORT)
-				//							.show();
-				//				}
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
 	}
 }
