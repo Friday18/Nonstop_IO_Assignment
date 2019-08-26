@@ -2,7 +2,7 @@ package com.nonstopio.Network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.nonstopio.view.Commons;
+import com.nonstopio.utility.Commons;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

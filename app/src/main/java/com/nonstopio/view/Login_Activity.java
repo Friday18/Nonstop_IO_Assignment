@@ -18,6 +18,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.nonstopio.R;
+import com.nonstopio.utility.Commons;
 
 import android.app.Activity;
 import android.content.Context;
@@ -29,7 +30,6 @@ import android.content.pm.Signature;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class Login_Activity extends Activity

@@ -8,6 +8,7 @@ import com.nonstopio.Model.Retro_TitleList;
 import com.nonstopio.Model.Titles_Adapter;
 import com.nonstopio.Network.RetrofitClientInstance;
 import com.nonstopio.Network.iGetDataServices;
+import com.nonstopio.utility.Commons;
 
 import android.app.Activity;
 import android.content.Context;

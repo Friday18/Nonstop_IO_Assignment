@@ -1,4 +1,4 @@
-package com.nonstopio.view;
+package com.nonstopio.utility;
 
 public class Commons
 {
